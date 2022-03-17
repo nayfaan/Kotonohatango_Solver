@@ -13,8 +13,8 @@ def output_area():
     return (frame_l, frame_r)
 
 def to_uppercase(var, index):
-    low_alp = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわゐゑをんぁぃぅぇぉっゃゅょ"
-    up_alp = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモヤユヨラリルレロワヰヱヲンーヵヶァィゥェォッャュョ"
+    low_alp = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわゐゑをんぁぃぅぇぉっゃゅょゔ"
+    up_alp = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモヤユヨラリルレロワヰヱヲンーヵヶァィゥェォッャュョヴ"
     
     while len(var.get()) > 0 and var.get()[-1] not in list(low_alp + up_alp):
         var.set(var.get()[:-1])
@@ -157,7 +157,11 @@ def submit_btn_press(submit_btn, reset_btn, frame_l):
         
         #display result to text box
         output_word_list_Text.delete("1.0", tk.END)
-        output_word_list = "Possible words:\n\n" + ", ".join(sol_remain)
+        OUTPUT_LIMIT = 500
+        if len(sol_remain) <= OUTPUT_LIMIT:
+            output_word_list = "Possible words:\n\n" + ", ".join(sol_remain)
+        else:
+            output_word_list = "Possible words:\n\nList longer than 500 words are not displayed."
         output_word_list_Text.insert("1.0", output_word_list)
         
         output_frequency_analysis_label.config(text = __str_freq(analyze_remain(sol_remain)))
@@ -219,8 +223,9 @@ def init():
     
     global output_word_list_Text
     #output_word_list = "Possible words:\n\n" + ", ".join(sol_remain)
+    output_word_list = "Possible words:\n\nList longer than 500 words are not displayed."
     output_word_list_Text = tk.Text(master = frame_r, width = 5*box_size)#, state = "disabled")
-    #output_word_list_Text.insert("1.0", output_word_list)
+    output_word_list_Text.insert("1.0", output_word_list)
     output_word_list_Text.pack()
     
     global output_frequency_analysis_label
@@ -252,5 +257,5 @@ if __name__ == "__main__":
     white = "white"
     yellow = "#b59f3b"
     green = "#538d4e"
- 
+    
     run()
