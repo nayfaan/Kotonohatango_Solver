@@ -3,8 +3,6 @@ import tkinter as tk
 import re
 from jcconv3 import hira2kata
 
-import snoop 
-@snoop
 def output_area():
     frame_l = tk.Frame(master = root)
     frame_r = tk.Frame(master = root, borderwidth = 2, width = 5*box_size)
