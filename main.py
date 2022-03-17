@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 import tkinter as tk
 import re
-from jcconv3 import *
+from jcconv3 import hira2kata
 
+import snoop 
+@snoop
 def output_area():
     frame_l = tk.Frame(master = root)
     frame_r = tk.Frame(master = root, borderwidth = 2, width = 5*box_size)
@@ -13,14 +15,14 @@ def output_area():
     return (frame_l, frame_r)
 
 def to_uppercase(var, index):
-    low_alp = "abcdefghijklmnopqrstuvwxyz"
-    up_alp = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    low_alp = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわゐゑをん"
+    up_alp = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモヤユヨラリルレロワヰヱヲンー"
     
     while len(var.get()) > 0 and var.get()[-1] not in list(low_alp + up_alp):
         var.set(var.get()[:-1])
     
     try:
-        var.set(var.get().upper()[-1])
+        var.set(hira2kata(var.get()[-1]))
     except:
         pass
     
@@ -174,6 +176,7 @@ def reset_btn_press(reset_btn, frame_l):
     init()
     
 def analyze_remain(sol_remain_analyze):
+    pass
     remain_frequency_analysis = {}
     remain_alphabets = list(set("".join(sol_remain_analyze)))
     remain_alphabets.sort()
@@ -239,7 +242,6 @@ def run():
 if __name__ == "__main__":
     with open("./input/possible_solutions.txt", "rt") as f:
         sol = f.read().splitlines()
-    
         
     global sol_remain
     sol_remain = sol
@@ -253,11 +255,4 @@ if __name__ == "__main__":
     yellow = "#b59f3b"
     green = "#538d4e"
     
-    check=[]
-    for x in sol_remain:
-        if sol_remain.count(x) > 1:
-            check.append(x)
-    check = sorted(check)
-    print(check)
-    
-    '''run()'''
+    run()
